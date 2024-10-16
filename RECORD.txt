@@ -1,0 +1,932 @@
+----------------------------LAB CYCLE-1---------------------------------------
+
+1.
+
+	mysql> CREATE TABLE student(student_id int,Name varchar(10),department varchar(15),mark_1 int,mark_2 int,cgpa float);
+	Query OK, 0 rows affected (0.11 sec)
+
+mysql> DESC student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int         | YES  |     | NULL    |       |
+| Name       | varchar(10) | YES  |     | NULL    |       |
+| department | varchar(15) | YES  |     | NULL    |       |
+| mark_1     | int         | YES  |     | NULL    |       |
+| mark_2     | int         | YES  |     | NULL    |       |
+| cgpa       | float       | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+
+mysql> INSERT INTO student values (1,'RAVI','CS',92,94,9.2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO student values (2,'ANU','SMS',97,91,9.3),
+    -> (3,'AKHIL','CA',88,93,8.9),
+    -> (4,'AMAL','CS',93,95,9.4),
+    -> (5,'ASWIN','CIS',97,96,9.5);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+2)
+
+mysql> CREATE TABLE hostel_details(std_id int,stud_name varchar(10),block char(1),room_no int);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> DESC hostel_details;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| std_id    | int         | YES  |     | NULL    |       |
+| stud_name | varchar(10) | YES  |     | NULL    |       |
+| block     | char(1)     | YES  |     | NULL    |       |
+| room_no   | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> INSERT INTO hostel_details values (1,'RAVI','A',06),
+    -> (2,'ANU','B',12),
+    -> (3,'AKHIL','C',33),
+    -> (4,'AMAL','A',07),
+    -> (5,'ASWIN','D',10);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+3.
+mysql> SELECT * FROM student;
++------------+-------+------------+--------+--------+------+
+| student_id | Name  | department | mark_1 | mark_2 | cgpa |
++------------+-------+------------+--------+--------+------+
+|          1 | RAVI  | CS         |     92 |     94 |  9.2 |
+|          2 | ANU   | SMS        |     97 |     91 |  9.3 |
+|          3 | AKHIL | CA         |     88 |     93 |  8.9 |
+|          4 | AMAL  | CS         |     93 |     95 |  9.4 |
+|          5 | ASWIN | CIS        |     97 |     96 |  9.5 |
++------------+-------+------------+--------+--------+------+
+5 rows in set (0.09 sec)
+
+mysql> SELECT * FROM hostel;
++--------+-----------+-------+---------+
+| std_id | stud_name | block | room_no |
++--------+-----------+-------+---------+
+|      1 | RAVI      | A     |       6 |
+|      2 | ANU       | B     |      12 |
+|      3 | AKHIL     | C     |      33 |
+|      4 | AMAL      | A     |       7 |
+|      5 | ASWIN     | D     |      10 |
++--------+-----------+-------+---------+
+5 rows in set (0.05 sec)
+
+
+4.
+mysql> ALTER TABLE hostel_details RENAME TO hostel;
+Query OK, 0 rows affected (0.04 sec)
+
+5.
+
+mysql> UPDATE student SET cgpa=8 WHERE student_id=103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM student;
++------------+--------+------------+--------+--------+------+
+| student_id | Name   | department | mark_1 | mark_2 | cgpa |
++------------+--------+------------+--------+--------+------+
+|          1 | RAVI   | CS         |     92 |     94 |  9.2 |
+|          2 | ANU    | SMS        |     97 |     91 |  9.3 |
+|          3 | AKHIL  | CA         |     88 |     93 |  7.2 |
+|          4 | AMAL   | CS         |     93 |     95 |  9.4 |
+|          5 | ASWIN  | CIS        |     97 |     96 |  9.5 |
+|        103 | RASHID | CA         |     72 |     84 |    8 |
++------------+--------+------------+--------+--------+------+
+6 rows in set (0.00 sec)
+
+6.
+
+mysql> SELECT * FROM student WHERE cgpa>8;
++------------+-------+------------+--------+--------+------+
+| student_id | Name  | department | mark_1 | mark_2 | cgpa |
++------------+-------+------------+--------+--------+------+
+|          1 | RAVI  | CS         |     92 |     94 |  9.2 |
+|          2 | ANU   | SMS        |     97 |     91 |  9.3 |
+|          4 | AMAL  | CS         |     93 |     95 |  9.4 |
+|          5 | ASWIN | CIS        |     97 |     96 |  9.5 |
++------------+-------+------------+--------+--------+------+
+4 rows in set (0.01 sec)
+
+7.
+mysql> SELECT stud_name from hostel WHERE block='A';
++-----------+
+| stud_name |
++-----------+
+| RAVI      |
+| AMAL      |
++-----------+
+2 rows in set (0.01 sec)
+
+8.
+
+mysql> SELECT Name FROM student WHERE department='CS';
++------+
+| Name |
++------+
+| RAVI |
+| AMAL |
++------+
+2 rows in set (0.00 sec)
+
+9.
+
+mysql> UPDATE  student SET department='EC' WHERE Name='ANU';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM student;
++------------+--------+------------+--------+--------+------+
+| student_id | Name   | department | mark_1 | mark_2 | cgpa |
++------------+--------+------------+--------+--------+------+
+|          1 | RAVI   | CS         |     92 |     94 |  9.2 |
+|          2 | ANU    | EC         |     97 |     91 |  9.3 |
+|          3 | AKHIL  | CA         |     88 |     93 |  7.2 |
+|          4 | AMAL   | CS         |     93 |     95 |  9.4 |
+|          5 | ASWIN  | CIS        |     97 |     96 |  9.5 |
+|        103 | RASHID | CA         |     72 |     84 |    8 |
++------------+--------+------------+--------+--------+------+
+6 rows in set (0.00 sec)
+
+10.
+mysql> DELETE FROM hostel_details WHERE room_no= 108; 
+Query OK, 1 row affected (0.01 sec)
+---------------------------------------------------------------------------------------------------------
+LAB CYCLE -2
+----------------------------------------------------------------------------------------------------
+2.
+
+mysql> CREATE TABLE emp (
+    -> emp_id varchar(10) PRIMARY KEY,
+    -> emp_name varchar(10) NOT NULL,
+    -> city varchar(10),
+    -> CHECK (emp_id LIKE 'E%'));
+
+mysql> CREATE TABLE works(
+    -> emp_id varchar(10),
+    -> company_name varchar(20),
+    -> salary int,
+    -> PRIMARY KEY(emp_id,company_name),
+    -> FOREIGN KEY (emp_id) REFERENCES emp(emp_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE company(
+    -> company_name varchar(20) PRIMARY KEY,
+    -> city varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE manages (
+    -> emp_id varchar(10),
+    -> manager_id varchar(10),
+    -> PRIMARY KEY (emp_id,manager_id),
+    -> FOREIGN KEY (emp_id) REFERENCES emp(emp_id),
+    -> FOREIGN KEY (manager_id) REFERENCES emp(emp_id));
+Query OK, 0 rows affected (0.05 sec)
+
+
+2.
+mysql> ALTER TABLE emp MODIFY COLUMN emp_name varchar(10) NOT NULL;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+-----------------
+mysql> INSERT INTO company(company_name,city) SELECT DISTINCT w.company_name, e.city FROM works w JOIN emp e ON w.emp_id=e.emp_id;
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from company;
++--------+--------------+
+| city   | company_name |
++--------+--------------+
+| PUNE   | SBI          |
+| MUMBAI | INDIAN BANK  |
+| PUNE   | INDIAN BANK  |
+| MUMBAI | SBI          |
++--------+--------------+
+4 rows in set (0.00 sec)
+
+
+3.
+
+mysql> SELECT e.emp_name
+    -> FROM emp e JOIN works w ON e.emp_id=w.emp_id
+    -> WHERE w.company_name='SBI';
++----------+
+| emp_name |
++----------+
+| RAJ      |
+| ARYA     |
+| SHARAN   |
+| RAVI     |
++----------+
+4 rows in set (0.01 sec)
+
+4.
+mysql> SELECT e.emp_name FROM emp e
+    -> JOIN works w ON e.emp_id=w.emp_id
+    -> JOIN company c ON w.company_name=c.company_name
+    -> WHERE e.city=c.city;
++----------+
+| emp_name |
++----------+
+| RAJ      |
+| ARJUN    |
+| ARUN     |
+| ARYA     |
+| SHARAN   |
+| RAVI     |
++----------+
+6 rows in set (0.01 sec) 	
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.
+
+mysql> SELECT e.emp_name AS employee, m.emp_name AS manager
+    -> FROM emp e JOIN manages mn ON e.emp_id = mn.emp_id
+    -> JOIN emp m ON mn.manager_id = m.emp_id
+    -> WHERE e.city = m.city AND e.street_no = m.street_no;
++----------+---------+
+| employee | manager |
++----------+---------+
+| SHARAN   | RAVI    |
++----------+---------+
+1 row in set (0.01 sec)
+--------------------------------------------------------------------------
+6.
+mysql> SELECT e.emp_name, w.salary FROM emp e
+    -> JOIN works w ON e.emp_id = w.emp_id
+    -> WHERE w.salary > (SELECT AVG(w2.salary) FROM works w2
+    -> WHERE w2.company_name = w.company_name);
++----------+--------+
+| emp_name | salary |
++----------+--------+
+| ARUN     |  18000 |
+| ARYA     |  20000 |
+| RAVI     |  22000 |
++----------+--------+
+3 rows in set (0.01 sec)
+-----------------------------------------------------------------------------
+7.
+mysql> SELECT w.company_name, SUM(w.salary) AS total_salary
+    -> FROM works w GROUP BY w.company_name
+    -> ORDER BY total_salary ASC LIMIT 1;
++--------------+--------------+
+| company_name | total_salary |
++--------------+--------------+
+| INDIAN BANK  |        35000 |
++--------------+--------------+
+1 row in set (0.00 sec)
+---------------------------------------------------------------------------------------
+8.
+
+mysql> UPDATE works w JOIN
+    -> (SELECT m.emp_id FROM manages m JOIN works w ON m.emp_id = w.emp_id
+    -> WHERE w.company_name = 'SBI')
+    -> AS managers ON w.emp_id = managers.emp_id
+    -> SET w.salary = w.salary * 1.10;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from works;
++--------+--------------+--------+
+| emp_id | company_name | salary |
++--------+--------------+--------+
+| E101   | SBI          |  16500 |
+| E102   | INDIAN BANK  |  17000 |
+| E103   | INDIAN BANK  |  18000 |
+| E104   | SBI          |  22000 |
+| E105   | SBI          |  17600 |
+| E106   | SBI          |  24200 |
++--------+--------------+--------+
+6 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------------
+9.
+
+mysql> SELECT w.company_name, COUNT(w.emp_id) AS no_employees
+    -> FROM works w GROUP BY w.company_name
+    -> ORDER BY no_employees DESC LIMIT 1;
++--------------+--------------+
+| company_name | no_employees |
++--------------+--------------+
+| SBI          |            4 |
++--------------+--------------+
+1 row in set (0.00 sec)
+------------------------------------------------------------------------------------------
+10.
+
+mysql> SELECT w.company_name
+    -> FROM works w
+    -> GROUP BY w.company_name
+    -> HAVING AVG(w.salary) > (
+    -> SELECT AVG(w2.salary)
+    -> FROM works w2  WHERE w2.company_name = 'Indian Bank');
++--------------+
+| company_name |
++--------------+
+| SBI          |
++--------------+
+1 row in set (0.01 sec)
+
+----------------------------------------------------------------------------------------------
+11.
+
+mysql> SELECT e.emp_name, w.salary FROM emp e
+    -> JOIN works w ON e.emp_id = w.emp_id
+    -> WHERE w.salary > ( SELECT MAX(w2.salary)  FROM works w2
+    -> WHERE w2.company_name = 'Indian Bank');
++----------+--------+
+| emp_name | salary |
++----------+--------+
+| ARYA     |  22000 |
+| RAVI     |  24200 |
++----------+--------+
+2 rows in set (0.01 sec)
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+LAB CYCLE 3
+-------------------------------------------------------------------------------------------------------------------
+
+3.
+
+mysql> SELECT UPPER(Bank_name) AS Bank_name_upper FROM account;
++-------------------+
+| Bank_name_upper   |
++-------------------+
+| SBI               |
+| FEDERAL BANK      |
+| FEDERAL BANK      |
+| SOUTH INDIAN BANK |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT LOWER(Bank_name) AS Bank_name_lower FROM account;
++-------------------+
+| Bank_name_lower   |
++-------------------+
+| sbi               |
+| federal bank      |
+| federal bank      |
+| south indian bank |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT Bank_name,LENGTH(Bank_name) AS Bank_name_LENGTH FROM account;
++-------------------+------------------+
+| Bank_name         | Bank_name_LENGTH |
++-------------------+------------------+
+| SBI               |                3 |
+| federal bank      |               12 |
+| federal bank      |               12 |
+| South Indian Bank |               17 |
++-------------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT ROUND(Acc_balance, 2) AS rounded_balance FROM account;
++-----------------+
+| rounded_balance |
++-----------------+
+|           10000 |
+|           15000 |
+|           19000 |
+|            9000 |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT REPLACE(bank_name, 'Bank', 'Institute') AS bank_name_replaced FROM account;
++------------------------+
+| bank_name_replaced     |
++------------------------+
+| SBI                    |
+| federal bank           |
+| federal bank           |
+| South Indian Institute |
++------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT SYSDATE() AS system_datetime;
++---------------------+
+| system_datetime     |
++---------------------+
+| 2024-08-25 18:55:21 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT EXTRACT(MONTH FROM SYSDATE()) AS current_month;
++---------------+
+| current_month |
++---------------+
+|             8 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT EXTRACT(YEAR FROM SYSDATE()) AS current_year;
++--------------+
+| current_year |
++--------------+
+|         2024 |
++--------------+
+1 row in set (0.00 sec)
+
+--------------------------------------------------------------------------------------------------------------
+4.
+--------------------------------------------------------------------------------------------------------------
+mysql> select count(*) AS no_faculties from Faculty;
++--------------+
+| no_faculties |
++--------------+
+|            6 |
++--------------+
+1 row in set (0.04 sec)
+
+mysql> select count(*) as no_student_starting_with_A from student
+    -> where student_name LIKE 'a%';
++----------------------------+
+| no_student_starting_with_A |
++----------------------------+
+|                          2 |
++----------------------------+
+1 row in set (0.01 sec)
+
+mysql> select *  from student
+    -> where student_name LIKE 'a%';
++--------------+--------------+------------+----------------+----------------+
+| student_code | student_name | DOB        | student_branch | admission_date |
++--------------+--------------+------------+----------------+----------------+
+|            2 | aswin        | 1999-06-06 | CS             | 2023-08-13     |
+|            3 | alvin        | 1999-09-17 | EC             | 2022-08-18     |
++--------------+--------------+------------+----------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) as total_recs_student_table from student;
++--------------------------+
+| total_recs_student_table |
++--------------------------+
+|                        5 |
++--------------------------+
+1 row in set (0.01 sec)
+
+mysql> select distinct student_branch from student;
++----------------+
+| student_branch |
++----------------+
+| CS             |
+| EC             |
+| EE             |
++----------------+
+3 rows in set (0.01 sec)
+
+mysql> select Faculty_name,subjectname from Faculty,subject
+    -> where Faculty.Faculty_code=subject.Faculty_code;
++--------------+-------------+
+| Faculty_name | subjectname |
++--------------+-------------+
+| ravi         | maths       |
+| anil         | history     |
+| rajesh       | physics     |
+| vijay        | chemistry   |
+| anandu       | biology     |
+| rajeev       | english     |
++--------------+-------------+
+6 rows in set (0.01 sec)
+
+mysql> select subjectname,maxmarks from subject order by maxmarks asc;
++-------------+----------+
+| subjectname | maxmarks |
++-------------+----------+
+| physics     |       30 |
+| chemistry   |       30 |
+| biology     |       40 |
+| history     |       50 |
+| maths       |      100 |
+| english     |      100 |
++-------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select F.Faculty_name from Faculty F
+    -> JOIN subject s ON s.Faculty_code=F.Faculty_code
+    -> group by Faculty_name having count(s.subject_code)>1;
++--------------+
+| Faculty_name |
++--------------+
+| anil         |
+| rajesh       |
++--------------+
+2 rows in set (0.01 sec)
+
+
+------------------------------------------------------------------------------------------------------
+LAB CYCLE-4
+------------------------------------------------------------------------------------------------------
+
+5.
+------------------------------------------------------------------------------------
+mysql> CREATE TABLE Depart(Department_ID INT PRIMARY KEY,Departmetname VARCHAR(20),ManagerID INT,Location VARCHAR(20));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> CREATE TABLE Emp (Emp_No INT PRIMARY KEY, Name VARCHAR(20),Job VARCHAR(20),
+    -> Salary DECIMAL(10, 2),HireDate DATE,Commission DECIMAL(10, 2),Department_No INT,
+    -> FOREIGN KEY (Department_No) REFERENCES Depart(Department_ID));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc Depart;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Department_ID | int         | NO   | PRI | NULL    |       |
+| Departmetname | varchar(20) | YES  |     | NULL    |       |
+| ManagerID     | int         | YES  |     | NULL    |       |
+| Location      | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.07 sec)
+
+mysql> desc Emp;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| Emp_No        | int           | NO   | PRI | NULL    |       |
+| Name          | varchar(20)   | YES  |     | NULL    |       |
+| Job           | varchar(20)   | YES  |     | NULL    |       |
+| Salary        | decimal(10,2) | YES  |     | NULL    |       |
+| HireDate      | date          | YES  |     | NULL    |       |
+| Commission    | decimal(10,2) | YES  |     | NULL    |       |
+| Department_No | int           | YES  | MUL | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+---------------------------------------------------------------------------------------
+1.
+mysql> SELECT * FROM Emp WHERE Salary NOT BETWEEN 5000 AND 35000;
++--------+--------+---------+--------+------------+-----------+---------------+
+| Emp_no | Name   | Job     | Salary | Hiredate   | Commision | Department_No |
++--------+--------+---------+--------+------------+-----------+---------------+
+|      5 | JOSEPH | MANAGER |  40000 | 1999-07-23 |      NULL |             4 |
++--------+--------+---------+--------+------------+-----------+---------------+
+1 row in set (0.00 sec)
+
+---------------------------------------------------------------------------------------
+2.
+	mysql> SELECT Name,Job,Hiredate FROM Emp WHERE Hiredate BETWEEN '1990-02-20' AND '1998-05-01';
++--------+------------+------------+
+| Name   | Job        | Hiredate   |
++--------+------------+------------+
+| RAKESH | MANAGER    | 1992-02-12 |
+| JOHN   | CLERK      | 1994-07-23 |
+| AKHIL  | TECHNICIAN | 1994-02-14 |
++--------+------------+------------+
+3 rows in set (0.00 sec)
+-------------------------------------------------------------------------------------------
+3.
+mysql> SELECT Name AS EMPLOYEE ,Salary AS 'Monthly Salary' FROM Emp WHERE Salary BETWEEN 5000 AND 12000 AND Department_No
+    -> IN (2,4);
++----------+----------------+
+| EMPLOYEE | Monthly Salary |
++----------+----------------+
+| AMIT     |           7000 |
+| JOHN     |          10000 |
++----------+----------------+
+2 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------
+4.
+mysql> SELECT Name , Hiredate FROM Emp WHERE YEAR(Hiredate)=1994;
++-------+------------+
+| Name  | Hiredate   |
++-------+------------+
+| JOHN  | 1994-07-23 |
+| AKHIL | 1994-02-14 |
++-------+------------+
+2 rows in set (0.00 sec)
+-----------------------------------------------------------------------------------------------
+5.
+mysql> select Name , Salary, Commision from Emp 
+    -> where Commision IS NOT NULL 
+    -> ORDER BY Salary DESC,Commision DESC;
++------+--------+-----------+
+| Name | Salary | Commision |
++------+--------+-----------+
+| JOHN |  10000 |      1000 |
+| AMIT |   7000 |      2000 |
++------+--------+-----------+
+2 rows in set (0.00 sec)
+-----------------------------------------------------------------------------------------------
+6.
+mysql>SELECT Name, Job
+    ->FROM Emp
+    ->WHERE ManagerID IS NULL;
+ +------+---------+
+ | Name | Job     |
+ +------|---------+
+ | John | Manager |
+ | Jose | Manager |
+ +------+---------+
+ 2 rows in set (0.01 sec)
+ -----------------------------------------------------------------------------------------------
+ 7.
+ mysql> SELECT Name from Emp where Name LIKE '__a%';
++------+
+| Name |
++------+
+| AMAN |
++------+
+------------------------------------------------------------------------------------------------
+8.
+mysql> SELECT Name
+    -> FROM Emp
+    -> WHERE Name LIKE '%a%' AND Name LIKE '%e%';
++--------+
+| Name   |
++--------+
+| RAKESH |
++--------+
+-------------------------------------------------------------------------------------------------
+9.
+mysql> SELECT Name, Job, Salary FROM Emp
+    -> WHERE (Job = 'SALES REP' OR Job = 'CLERK')
+    -> AND Salary NOT IN (20000, 4000, 7000);
++------+-------+--------+
+| Name | Job   | Salary |
++------+-------+--------+
+| JOHN | CLERK |  10000 |
++------+-------+--------+
+1 row in set (0.01 sec)
+----------------------------------------------------------------------------------------------------
+10.
+
+mysql> ^C
+mysql> SELECT Emp.Name, Emp.Department_No, Depart.Departmentname FROM Emp
+    -> JOIN Depart ON Emp.Department_No = Depart.Department_ID; 
++--------+---------------+----------------+
+| Name   | Department_No | Departmentname |
++--------+---------------+----------------+
+| RAKESH |             1 | OPERATIONS     |
+| AMIT   |             2 | SALES          |
+| JOHN   |             4 | HR             |
+| AMAN   |             2 | SALES          |
+| JOSEPH |             4 | HR             |
++--------+---------------+----------------+
+5 rows in set (0.01 sec)
+--------------------------------------------------------------------------------------------------
+11.
+mysql> SELECT Emp_No, Name FROM Emp WHERE Department_No IN (
+    -> SELECT Department_No FROM Emp WHERE Name LIKE '%a%');
++--------+--------+
+| Emp_No | Name   |
++--------+--------+
+|      1 | RAKESH |
+|      2 | AMIT   |
+|      4 | AMAN   |
++--------+--------+
+3 rows in set (0.01 sec)
+---------------------------------------------------------------------------------------------------
+12.
+mysql> SELECT Name, HireDate FROM Emp
+    -> WHERE Department_No = (SELECT Department_No FROM Emp
+    -> WHERE Name = 'Amit') AND Name != 'John';
++------+------------+
+| Name | HireDate   |
++------+------------+
+| AMIT | 1999-02-14 |
+| AMAN | 1994-02-14 |
++------+------------+
+2 rows in set (0.00 sec)
+
+
+
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+6.
+
+
+mysql> desc ACTOR;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Act_id     | int         | NO   | PRI | NULL    |       |
+| Act_Name   | varchar(20) | YES  |     | NULL    |       |
+| Act_Gender | varchar(7)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rowsin set (0.01 sec)
+
+mysql> desc DIRECTOR;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dir_id    | int         | NO   | PRI | NULL    |       |
+| Dir_Name  | varchar(20) | YES  |     | NULL    |       |
+| Dir_Phone | varchar(11) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> DESC MOVIES;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Mov_id    | int         | NO   | PRI | NULL    |       |
+| Mov_Title | varchar(20) | YES  |     | NULL    |       |
+| Mov_Year  | int         | YES  |     | NULL    |       |
+| Mov_Lang  | varchar(20) | YES  |     | NULL    |       |
+| Dir_id    | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> DESC MOVIE_CAST;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Act_id | int         | NO   | PRI | NULL    |       |
+| Mov_id | int         | NO   | PRI | NULL    |       |
+| Role   | varchar(15) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC RATING;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| Mov_id    | int  | YES  | MUL | NULL    |       |
+| Rev_Stars | int  | YES  |     | NULL    |       |
++-----------+------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+-------------------------------------------------------------------------
+
+1.
+mysql> SELECT mov_title FROM MOVIES
+    -> JOIN DIRECTOR ON MOVIES.Dir_id = DIRECTOR.Dir_id
+    -> WHERE Dir_Name = 'Hitch Cock';
++------------+
+| mov_title  |
++------------+
+| The Psycho |
++------------+
+1 row in set (0.00 sec)
+--------------------------------------------------------------------------
+2.
+mysql> SELECT Mov_Title FROM MOVIES
+    -> WHERE Mov_id IN (SELECT Mov_id FROM MOVIE_CAST
+    -> WHERE Act_id IN (SELECT Act_id FROM MOVIE_CAST
+    -> GROUP BY Act_id HAVING COUNT(Mov_id) >= 2));
+Empty set (0.01 sec)
+--------------------------------------------------------------------------
+3.
+mysql> SELECT DISTINCT ACTOR.Act_Name FROM ACTOR
+    -> JOIN MOVIE_CAST ON ACTOR.Act_id = MOVIE_CAST.Act_id
+    -> JOIN MOVIES ON MOVIE_CAST.Mov_id = MOVIES.Mov_id
+    -> WHERE MOVIES.Mov_Year < 2000 OR MOVIES.Mov_Year > 2015;
++-------------------+
+| Act_Name          |
++-------------------+
+| Tom Hanks         |
+| Jennifer Lawrence |
+| Brad Pitt         |
++-------------------+
+3 rows in set (0.00 sec)
+--------------------------------------------------------------------------
+4.
+mysql> UPDATE RATING SET Rev_Stars = 5 WHERE Mov_id IN 
+    -> (SELECT Mov_id FROM MOVIES 
+    -> JOIN DIRECTOR ON MOVIES.Dir_id = DIRECTOR.Dir_id
+    -> WHERE Dir_Name = 'Steven Spielberg');
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+--------------------------------------------------------------------------
+5.
+
+mysql> SELECT MOVIES.Mov_Title, MAX(RATING.Rev_Stars) AS Max_Stars
+    -> FROM MOVIES
+    -> JOIN RATING ON MOVIES.Mov_id = RATING.Mov_id
+    -> GROUP BY MOVIES.Mov_Title
+    -> HAVING COUNT(RATING.Rev_Stars) >= 1
+    -> ORDER BY MOVIES.Mov_Title ASC;
++---------------+-----------+
+| Mov_Title     | Max_Stars |
++---------------+-----------+
+| Avatar        |         5 |
+| Inception     |         5 |
+| Jurassic Park |         5 |
+| Pulp Fiction  |         5 |
+| The Irishman  |         4 |
++---------------+-----------+
+5 rows in set (0.00 sec)
+--------------------------------------------------------------------------------------------------------------------------
+LAB CYCLE 5
+--------------------------------------------------------
+7.
+
+mysql> CREATE TABLE employee (emp_no INT PRIMARY KEY,emp_name VARCHAR(100), job
+    ->VARCHAR(50),dept_no INT,salary INT);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into employee values(101, 'Alice', 'ASP', 1, 50000),
+    -> (102, 'Bob', 'Developer', 2, 60000),
+    -> (103, 'Charlie', 'ASP', 1, 55000),
+    -> (104, 'David', 'Manager', 3, 80000),
+    -> (105, 'Eve', 'Developer', 2, 62000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> CREATE VIEW employee_view AS select * from employee;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from employee_view;
++--------+----------+-----------+---------+--------+
+| emp_no | emp_name | job       | dept_no | salary |
++--------+----------+-----------+---------+--------+
+|    101 | Alice    | ASP       |       1 |  50000 |
+|    102 | Bob      | Developer |       2 |  60000 |
+|    103 | Charlie  | ASP       |       1 |  55000 |
+|    104 | David    | Manager   |       3 |  80000 |
+|    105 | Eve      | Developer |       2 |  62000 |
++--------+----------+-----------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT emp_no,emp_name,dept_no,job
+    -> FROM employee_view;
++--------+----------+---------+-----------+
+| emp_no | emp_name | dept_no | job       |
++--------+----------+---------+-----------+
+|    101 | Alice    |       1 | ASP       |
+|    102 | Bob      |       2 | Developer |
+|    103 | Charlie  |       1 | ASP       |
+|    104 | David    |       3 | Manager   |
+|    105 | Eve      |       2 | Developer |
++--------+----------+---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee_view where job='ASP';
++--------+----------+------+---------+--------+
+| emp_no | emp_name | job  | dept_no | salary |
++--------+----------+------+---------+--------+
+|    101 | Alice    | ASP  |       1 |  50000 |
+|    103 | Charlie  | ASP  |       1 |  55000 |
++--------+----------+------+---------+--------+
+2 rows in set (0.01 sec)
+mysql> update employee_view set dept_no=3 where emp_name='Charlie';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM employee where emp_name='Charlie';
++--------+----------+------+---------+--------+
+| emp_no | emp_name | job  | dept_no | salary |
++--------+----------+------+---------+--------+
+|    103 | Charlie  | ASP  |       3 |  55000 |
++--------+----------+------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> DROP VIEW employee_view;
+Query OK, 0 rows affected (0.01 sec)
+--------------------------------------------------------------------------------------------------------
+mysql> INSERT INTO Employee (emp_id, emp_name, designation, dept_no, salary) VALUES
+    -> (101, 'John', 'Manager', 1, 70000),
+    -> (102, 'Sarah', 'Developer', 2, 50000),
+    -> (103, 'Mike', 'Analyst', 3, 55000),
+    -> (104, 'Anna', 'Tester', 2, 45000),
+    -> (105, 'Bob', 'Support', 4, 40000);
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SAVEPOINT s;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO Employee (emp_id, emp_name, designation, dept_no, salary) VALUES
+    -> (106, 'Tom', 'Consultant', 1, 60000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Employee;
++--------+----------+-------------+---------+----------+
+| emp_id | emp_name | designation | dept_no | salary   |
++--------+----------+-------------+---------+----------+
+|    101 | John     | Manager     |       1 | 70000.00 |
+|    102 | Sarah    | Developer   |       2 | 50000.00 |
+|    103 | Mike     | Analyst     |       3 | 55000.00 |
+|    104 | Anna     | Tester      |       2 | 45000.00 |
+|    105 | Bob      | Support     |       4 | 40000.00 |
+|    106 | Tom      | Consultant  |       1 | 60000.00 |
++--------+----------+-------------+---------+----------+
+6 rows in set (0.01 sec)
+
+mysql> ROLLBACK TO s;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM Employee;
++--------+----------+-------------+---------+----------+
+| emp_id | emp_name | designation | dept_no | salary   |
++--------+----------+-------------+---------+----------+
+|    101 | John     | Manager     |       1 | 70000.00 |
+|    102 | Sarah    | Developer   |       2 | 50000.00 |
+|    103 | Mike     | Analyst     |       3 | 55000.00 |
+|    104 | Anna     | Tester      |       2 | 45000.00 |
+|    105 | Bob      | Support     |       4 | 40000.00 |
++--------+----------+-------------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.02 sec)
+
